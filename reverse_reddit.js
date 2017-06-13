@@ -3,7 +3,7 @@
 
 function setupLinks(sort_option) {
 	chrome.tabs.query({ 'active': true, 'lastFocusedWindow': true }, function (tabs) {
-		var url = tabs[0].url
+		var url = tabs[0].url.replace(/(https?:\/\/)/i, "")
 		$.getJSON("https://api.reddit.com/submit.api?url=" + url , function( result ) {
 			console.log(result)
 			if (result.data == null) {
