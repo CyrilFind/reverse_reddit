@@ -5,7 +5,7 @@ function setupLinks(sort_option) {
 	chrome.tabs.query({ 'active': true, 'lastFocusedWindow': true }, function (tabs) {
 		var url = tabs[0].url.replace(/(https?:\/\/)/i, "")
 		$.getJSON("https://api.reddit.com/submit.api?url=" + url , function( result ) {
-			console.log(result)
+			console.log(url + " => " + result)
 			if (result.data == null) {
 				result = result[0]
 			}
@@ -18,11 +18,18 @@ function setupLinks(sort_option) {
 				for (i = 0; i < Math.min(links.length, 10000); i++) { 
 					var link_data = links[i].data
 					var date = new Date(link_data.created * 1000)
-					$("#title").after("<div class=\"link\" > <span class=\"ups\">" + link_data.ups + "</span> - " 
-											+ redditLink(link_data.permalink, link_data.title.trunc(100)) + " on " 
-											+ redditLink("/r/" + link_data.subreddit, "r/" + link_data.subreddit) + " on "
-											+ "<span class=\"date\">" + date.toLocaleDateString() + " - " + date.toLocaleTimeString() + "</span>" 
-											+ "</div>")
+					$("#title").after("<div class=\"link\" >"
+										+ "<span class=\"ups\" title=\"sort by points\">" + link_data.ups + " </span> - " 
+										+ redditLink(link_data.permalink, link_data.title.trunc(60)) 
+										+ " on " 
+										+ redditLink("/r/" + link_data.subreddit, "r/" + link_data.subreddit) 
+										+ "<br/>"
+										+ " on "
+										+ "<span class=\"date\" title=\"sort by date\">" + date.toLocaleDateString() + " - " + date.toLocaleTimeString() + "</span>"
+										+ " by " 
+										+ redditLink("/u/" + link_data.author, "u/" + link_data.author)
+										+ " - <span class=\"comments\" title=\"sort by comments\">" + link_data.num_comments + " comments</span>" 
+										+ "</div>")
 				}
 
 				$(".ups").click(function () {
@@ -31,6 +38,9 @@ function setupLinks(sort_option) {
 
 				$(".date").click(function () {
 					setupLinks("created")
+				})	
+				$(".comments").click(function () {
+					setupLinks("num_comments")
 				})			
 			}
 		})

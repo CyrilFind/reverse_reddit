@@ -41,6 +41,16 @@ span:hover {
     border-top: 1px solid lightgrey;
 }
 
+.ups {
+	font-weight: bold;
+	font-size: 13px;
+	color: #c6c6c6;
+}
+
+.comments {
+	font-weight: bold;
+}
+
 #title {
 	padding: 5px 20px;
 	font-family: vag-rounded;
