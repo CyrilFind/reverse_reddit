@@ -1,6 +1,6 @@
 {
   "name": "reverse reddit",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "manifest_version": 3,
   "description": "This extension checks if the current webpage was posted on reddit",
   "icons": {
@@ -8,7 +8,7 @@
     "48": "icons/icon48.png",
     "128": "icons/icon128.png"
   },
-  "browser_action": {
+  "action": {
     "default_icon": "icons/icon19.png",
     "default_title": "reverse reddit",
     "default_popup": "reverse_reddit.html"
